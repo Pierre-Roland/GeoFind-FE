@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { MapComponent } from './component/map.component';
+import { MapComponent } from './component/map/map.component';
 
 @Component({
   selector: 'app-root',
