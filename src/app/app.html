@@ -15,7 +15,11 @@
       "
       onfocus="this.style.boxShadow='0 0 8px rgba(0, 123, 255, 0.6)'; this.style.width='300px';"
       onblur="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)'; this.style.width='250px';"
+      (input)="onInputChange($event)"
     />
+  </div>
+  <div style="width: 100%; height: 50px;">
+    <button name="Submit" style="width: 15%; height: 25px;" type="submit" (click)="onSubmit()"></button>
   </div>
   <div style="border: 2px solid grey; padding: 25px; background-color: rgb(228, 231, 227); border-radius: 23px;">
     <map></map>
