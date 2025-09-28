@@ -20,22 +20,23 @@ interface Coordonne {
 export class App {
   value: String = "";
 
+  coords!: Coordonne;
+
   private http = inject(HttpClient);
 
   protected readonly title = signal('geo-find');
 
   onInputChange(event: Event) {
     this.value = (event.target as HTMLInputElement).value;
-    console.log(this.value);
   }
 
   onSubmit() {
-    console.log("entré");
     const country = this.value; 
 
-    this.http.get<Coordonne>(`/maps/${country}`).subscribe({
+    this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
       next: (config) => {
         console.log('Réponse backend:', config);
+        this.coords = config;
       },
       error: (err) => {
         console.error('Erreur API:', err);
