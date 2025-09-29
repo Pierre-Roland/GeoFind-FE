@@ -20,7 +20,7 @@ interface Coordonne {
 export class App {
   value: String = "";
 
-  coords!: Coordonne;
+  coords = signal<Coordonne | null>(null);
 
   private http = inject(HttpClient);
 
@@ -36,7 +36,7 @@ export class App {
     this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
       next: (config) => {
         console.log('Réponse backend:', config);
-        this.coords = config;
+        this.coords.set(config);
       },
       error: (err) => {
         console.error('Erreur API:', err);
