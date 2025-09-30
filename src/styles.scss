@@ -1,2 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Conteneur avec fond */
+.particles-bg {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden; /* pour éviter que les particules sortent */
+  padding: 5%;
+  background: radial-gradient(circle at top, #e6f0ff, #cce0ff, #99c2ff);
+}
+
+/* Particules */
+.particles-bg::before,
+.particles-bg::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(white 2px, transparent 2px);
+  background-size: 50px 50px;
+  animation: moveParticles 60s linear infinite;
+  opacity: 0.5;
+}
+
+.particles-bg::after {
+  background-size: 100px 100px;
+  animation-duration: 120s;
+  opacity: 0.3;
+}
+
+/* Animation lente des particules */
+@keyframes moveParticles {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
