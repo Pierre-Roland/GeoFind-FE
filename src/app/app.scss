@@ -19,6 +19,7 @@
   animation: moveParticles 60s linear infinite;
   opacity: 0.5;
   z-index: -1;
+  pointer-events: none;
 }
 
 .particles-bg::after {
