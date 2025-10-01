@@ -1,5 +1,6 @@
 import { Component, signal, inject  } from '@angular/core';
 import { MapComponent } from './component/map/map.component';
+import { HeaderComponent } from './component/header/header.component';
 import { HttpClient } from '@angular/common/http';
 
 interface Coordonne {
@@ -12,7 +13,7 @@ interface Coordonne {
 @Component({
   selector: 'app-root',
   standalone: true,        
-  imports: [MapComponent],  
+  imports: [MapComponent, HeaderComponent],  
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
