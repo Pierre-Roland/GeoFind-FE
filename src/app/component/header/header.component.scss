@@ -1,0 +1,48 @@
+.header {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.3rem;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 1%;
+
+  .nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    width: 55%;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 5%;
+
+  }
+
+  .connection-link {
+    display: flex;
+    align-items: center;
+    width: 25%;
+    text-align: center;
+    margin-left: 15%;
+  }
+}
+
+header a {
+  text-decoration: none;
+  color: #333;              /* couleur du texte */
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;   /* espace autour du lien */
+  border-radius: 6px;       /* coins arrondis */
+  transition: all 0.3s ease;
+}
+
+header a:hover {
+  background: #0077ff;      /* fond au survol */
+  color: #fff;              /* texte blanc */
+}
+
+header a:active {
+  transform: scale(0.95);   /* petit effet clic */
+}

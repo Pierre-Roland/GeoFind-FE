@@ -1,5 +1,7 @@
-import { Component, AfterViewInit, Input, OnChanges, SimpleChanges  } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, SimpleChanges,signal, inject  } from '@angular/core';
 import * as L from 'leaflet';
+import { HttpClient } from '@angular/common/http';
+import { effect } from '@angular/core';
 
 interface Coordonne {
   zoom: number;
@@ -13,10 +15,44 @@ interface Coordonne {
   templateUrl: 'map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnChanges  {
+
+export class MapComponent implements AfterViewInit {
   private map!: L.Map;
 
-  @Input() coords: Coordonne | null = null;
+  value: String = "";
+
+  coords = signal<Coordonne | null>(null);
+
+  private http = inject(HttpClient);
+
+  protected readonly title = signal('geo-find');
+
+  constructor() {
+    effect(() => {
+      const c = this.coords();
+      if (c && this.map) {
+        this.updateMap(c);
+      }
+    });
+  }
+
+  onSubmit() {
+    const country = this.value; 
+
+    this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
+      next: (config) => {
+        console.log('Réponse backend:', config);
+        this.coords.set(config);
+      },
+      error: (err) => {
+        console.error('Erreur API:', err);
+      }
+    });
+  }
+
+  onInputChange(event: Event) {
+    this.value = (event.target as HTMLInputElement).value;
+  }
 
   ngAfterViewInit(): void {
     this.map = L.map('map', {
@@ -27,16 +63,6 @@ export class MapComponent implements AfterViewInit, OnChanges  {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
-
-    if (this.coords) {
-      this.updateMap(this.coords);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['coords'] && this.coords && this.map) {
-      this.updateMap(this.coords);
-    }
   }
 
   private updateMap(coords: Coordonne): void {

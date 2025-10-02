@@ -1,3 +1,52 @@
-<div id="map" style="height: 100vh;">
+<main style="margin: 5%;">
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+    <!-- Champ de recherche -->
+    <input 
+      type="text" 
+      placeholder="🔍 Rechercher..." 
+      style="
+        border: none;
+        border-radius: 25px;
+        width: 250px;
+        padding: 10px 16px;
+        font-size: 14px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+      "
+      onfocus="this.style.boxShadow='0 0 8px rgba(0, 123, 255, 0.6)'; this.style.width='300px';"
+      onblur="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)'; this.style.width='250px';"
+      (input)="onInputChange($event)"
+    />
+
+    <!-- Bouton de recherche -->
+    <button 
+      type="submit" 
+      (click)="onSubmit()"
+      style="
+        background: linear-gradient(135deg, #007BFF, #0056b3);
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+      "
+      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
+      onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
+    >
+      Rechercher
+    </button>
+  </div>
+
+  <!-- Conteneur de la carte -->
+  <div style="border: 2px solid grey; padding: 25px; background-color: rgb(228, 231, 227); border-radius: 23px;">
+    <div id="map" style="height: 100vh;">
     
-</div>
+    </div>
+    <!-- <div id="map" style="height: 500px; border-radius: 20px;"></div> -->
+  </div>
+</main>
