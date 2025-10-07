@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'reset-password',
@@ -17,7 +18,7 @@ export class ResetPasswordComponent {
     uid = '';
     newPassword = '';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
     ngOnInit() {
         const params = new URLSearchParams(window.location.search);
@@ -30,8 +31,13 @@ export class ResetPasswordComponent {
             token: this.token,
             uid: this.uid,
             newPassword: this.newPassword
-        }).subscribe({
-            next: res => alert('Mot de passe réinitialisé !')
+        },
+        { responseType: 'text' })
+        .subscribe({
+            next: res => {
+                alert('Mot de passe réinitialisé !');
+                this.router.navigateByUrl('/connection');
+            }
         });
     }
 }

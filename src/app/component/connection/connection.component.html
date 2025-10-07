@@ -1,0 +1,83 @@
+<div class="login-root" role="main" aria-labelledby="login-title">
+  <div class="card">
+    <header class="card-header">
+      <h1 id="login-title">Bienvenue</h1>
+      <p class="subtitle">Connectez-vous pour continuer</p>
+    </header>
+
+```
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form">
+  <label class="field">
+    <span class="label-text">Nom d'utilisateur</span>
+    <input
+      type="text"
+      formControlName="username"
+      [attr.aria-invalid]="username.invalid && username.touched"
+      placeholder="votre.nom"
+      required
+    />
+    <small class="error" *ngIf="username.invalid && username.touched">
+      <span *ngIf="username.errors?.['required']">Le nom d'utilisateur est requis.</span>
+      <span *ngIf="username.errors?.['minlength']">Au moins 3 caractères.</span>
+    </small>
+  </label>
+
+  <label class="field">
+    <div class="label-row">
+      <span class="label-text">Mot de passe</span>
+      <button
+        type="button"
+        class="link-btn"
+        (click)="onForgotPassword()"
+        aria-label="Mot de passe oublié"
+      >
+        Mot de passe oublié ?
+      </button>
+    </div>
+
+    <div class="password-wrapper">
+
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+        [attr.aria-invalid]="password.invalid && password.touched"
+        placeholder="••••••••"
+        required
+      />
+      <button
+        type="button"
+        class="toggle-visibility"
+        (click)="togglePassword()"
+        [attr.aria-pressed]="showPassword"
+        [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+      >
+        <svg *ngIf="!showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        <svg *ngIf="showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7a16.06 16.06 0 0 1 4.15-5.12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1l22 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <small class="error" *ngIf="password.invalid && password.touched">
+      <span *ngIf="password.errors?.['required']">Le mot de passe est requis.</span>
+      <span *ngIf="password.errors?.['minlength']">Minimum 6 caractères.</span>
+    </small>
+  </label>
+
+  <button class="primary-btn" type="submit" [disabled]="form.invalid" [attr.aria-disabled]="form.invalid">
+    Se connecter
+  </button>
+</form>
+
+<footer class="card-footer">
+  <p>Pas encore de compte ?</p>
+  <button class="outline-btn" (click)="onSignup()" aria-label="S'inscrire">S'inscrire</button>
+</footer>
+```
+
+  </div>
+</div>

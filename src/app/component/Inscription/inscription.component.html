@@ -1,0 +1,64 @@
+<div class="signup-root">
+  <div class="card">
+    <header class="card-header">
+      <h1>Inscription</h1>
+      <p class="subtitle">Créez votre compte pour commencer</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form">
+
+      <!-- Username -->
+      <label class="field">
+        <span class="label-text">Nom d'utilisateur</span>
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="Votre pseudo"
+          [attr.aria-invalid]="username.invalid && username.touched"
+          required
+        />
+        <small class="error" *ngIf="username.invalid && username.touched">
+          <span *ngIf="username.errors?.['required']">Le pseudo est requis.</span>
+          <span *ngIf="username.errors?.['minlength']">Minimum 3 caractères.</span>
+        </small>
+      </label>
+
+      <!-- Email -->
+      <label class="field">
+        <span class="label-text">Email</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="votre.email@example.com"
+          [attr.aria-invalid]="email.invalid && email.touched"
+          required
+        />
+        <small class="error" *ngIf="email.invalid && email.touched">
+          <span *ngIf="email.errors?.['required']">L'email est requis.</span>
+          <span *ngIf="email.errors?.['email']">Email invalide.</span>
+        </small>
+      </label>
+
+      <!-- Password -->
+      <label class="field">
+        <span class="label-text">Mot de passe</span>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [attr.aria-invalid]="password.invalid && password.touched"
+          required
+        />
+        <small class="error" *ngIf="password.invalid && password.touched">
+          <span *ngIf="password.errors?.['required']">Le mot de passe est requis.</span>
+          <span *ngIf="password.errors?.['minlength']">Minimum 6 caractères.</span>
+        </small>
+      </label>
+
+      <button class="primary-btn" type="submit" [disabled]="form.invalid">
+        S'inscrire
+      </button>
+
+    </form>
+  </div>
+</div>
