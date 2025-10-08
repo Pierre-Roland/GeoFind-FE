@@ -47,7 +47,7 @@ export class LoginFormComponent {
         .subscribe({
             next: (result: boolean) => {
             if (result) {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home', username]);
             } else {
                 alert('Identifiants invalides !');
             }

@@ -42,7 +42,7 @@ export class SignupComponent {
     .subscribe({
     next: () => {
         alert('inscription effectué !');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home', this.username.value]);
     },
     error: err => {
         console.error(err);

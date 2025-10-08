@@ -6,5 +6,10 @@
   </ul>
   <div class="connection-link">
     <a [routerLink]="['/connection']">Connection</a>
+    @if (userService.username$ | async; as username) {
+      <a href="" class="usernameHeader">{{ username?.[0] }}</a>
+    } @else {
+      <a href="" class="usernameHeader"></a>
+    }
   </div>
 </header>

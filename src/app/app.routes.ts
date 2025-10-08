@@ -7,7 +7,8 @@ import { ForgotPasswordComponent } from './component/forgotPassword/forgotPasswo
 import { SignupComponent } from './component/Inscription/inscription.component';
 
 export const routes: Routes = [
-    { path: 'home', component: HomeComponent },  
+    { path: 'home', component: HomeComponent }, 
+    { path: 'home/:username', component: HomeComponent}, 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'mostVisited', component: MostVisitedComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
