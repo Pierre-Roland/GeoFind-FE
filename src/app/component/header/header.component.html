@@ -1,15 +1,15 @@
 <header class="header">
   <ul class="nav-list">
     <li><a [routerLink]="['/home']">Accueil</a></li>
-    <li><a [routerLink]="['/mostVisited']">Lieux Populaire</a></li>
+    <li><a [routerLink]="['/mostVisited']">Lieux Populaires</a></li>
     <li><a [routerLink]="['/userPage']">Page Utilisateur</a></li>
   </ul>
   <div class="connection-link">
-    <a [routerLink]="['/connection']">Connection</a>
     @if (userService.username$ | async; as username) {
+      <a (click)="logout()">Déconnexion</a>
       <a href="" class="usernameHeader">{{ username?.[0] }}</a>
     } @else {
-      <a href="" class="usernameHeader"></a>
+      <a [routerLink]="['/connection']">Connexion</a>
     }
   </div>
 </header>

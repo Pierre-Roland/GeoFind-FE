@@ -2,6 +2,7 @@ import { Component, AfterViewInit, OnChanges, SimpleChanges,signal, inject  } fr
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { effect } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 interface Coordonne {
   zoom: number;
@@ -12,14 +13,22 @@ interface Coordonne {
 
 @Component({
   selector: 'map',
+  standalone: true, // composant autonome
+  imports: [FormsModule],
   templateUrl: 'map.component.html',
   styleUrls: ['./map.component.scss']
 })
 
 export class MapComponent implements AfterViewInit {
+  private currentMarker: L.Marker | null = null;
+
   private map!: L.Map;
 
   value: String = "";
+
+  isDescriptionVisible = false;
+
+  DescriptionLogo = false;
 
   coords = signal<Coordonne | null>(null);
 
@@ -36,8 +45,32 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+  closePopup() {
+    this.isDescriptionVisible = false;
+    this.DescriptionLogo = true;
+  }
+
+  openPopup() {
+    this.DescriptionLogo = false;
+    this.isDescriptionVisible = true;
+  }
+
+  onReset() {
+    this.DescriptionLogo = false;
+    this.isDescriptionVisible = false;
+    if (this.map) {
+      this.map.setView([51.505, -0.09], 3); 
+    }
+    this.value = '';
+    if (this.currentMarker) {
+      this.currentMarker.closePopup();
+    }
+  }
+
   onSubmit() {
     const country = this.value; 
+
+    this.isDescriptionVisible = true;
 
     this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
       next: (config) => {
@@ -72,11 +105,15 @@ export class MapComponent implements AfterViewInit {
       duration: 2
     });
 
-    L.marker([coords.center1, coords.center2], {
-      icon: L.divIcon({ className: 'empty-icon' }) 
+    if (this.currentMarker) {
+      this.map.removeLayer(this.currentMarker);
+    }
+
+    this.currentMarker = L.marker([coords.center1, coords.center2], {
+      icon: L.divIcon({ className: 'empty-icon' })
     })
-      .addTo(this.map)
-      .bindPopup(coords.country)
-      .openPopup();
+    .addTo(this.map)
+    .bindPopup(coords.country)
+    .openPopup();
   }
 }

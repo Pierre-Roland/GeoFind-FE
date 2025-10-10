@@ -45,18 +45,18 @@
 
 header a {
   text-decoration: none;
-  color: #333;              /* couleur du texte */
+  color: #333;             
   font-weight: 500;
-  padding: 0.4rem 0.8rem;   /* espace autour du lien */
-  border-radius: 6px;       /* coins arrondis */
+  padding: 0.4rem 0.8rem;   
+  border-radius: 6px;       
   transition: all 0.3s ease;
 }
 
 header a:hover {
-  background: #0077ff;      /* fond au survol */
-  color: #fff;              /* texte blanc */
+  background: #0077ff;    
+  color: #fff;             
 }
 
 header a:active {
-  transform: scale(0.95);   /* petit effet clic */
+  transform: scale(0.95);   
 }
