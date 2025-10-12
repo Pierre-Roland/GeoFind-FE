@@ -1,5 +1,5 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-<main style="margin: 5%;">
+<main>
   <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
     <!-- Champ de recherche -->
     <input 
@@ -66,14 +66,13 @@
   </div>
 
   <!-- Conteneur de la carte -->
-   <div class="map-container">
+  <div class="map-container">
     <div class="map-wrapper">
       <div id="map"></div>
       @if (isDescriptionVisible) {
         <div id="descriptionMap">
           <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer;"  (click)="closePopup()"></i>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBbIUtO5M1rqxLe7qQJli5koxzGDhtqBOI6g&s" alt="Image Belgique">
-          <!--<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0TMJjnubTCBd0ScDo5ebvKk8_Vwulqi3cw&s" alt="belgique pictures">-->
           <p>
             La Belgique produit plus de 1 000 variétés de bière 🍺 — et certaines ont même leur propre verre officiel !
 
@@ -93,5 +92,5 @@
         </div>
       }
     </div>
-   </div>
+  </div>
 </main>

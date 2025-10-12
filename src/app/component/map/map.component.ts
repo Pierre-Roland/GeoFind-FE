@@ -9,6 +9,7 @@ interface Coordonne {
   center1: number;
   center2: number;
   country: string;
+  times_visited: number;
 }
 
 @Component({

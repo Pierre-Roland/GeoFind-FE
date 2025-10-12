@@ -3,6 +3,11 @@
   border: none;
 }
 
+main {
+  padding: 5%;
+  background: linear-gradient(180deg, #25325c 0%, #1b2f6b 60%);
+}
+
 .map-container {
   gap: 25px;
   border: 2px solid grey;
