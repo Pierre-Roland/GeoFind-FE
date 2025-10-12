@@ -12,6 +12,12 @@ interface Coordonne {
   times_visited: number;
 }
 
+interface description {
+  lieu: string;
+  image: string;
+  description: string;
+}
+
 @Component({
   selector: 'map',
   standalone: true, // composant autonome
@@ -24,6 +30,10 @@ export class MapComponent implements AfterViewInit {
   private currentMarker: L.Marker | null = null;
 
   private map!: L.Map;
+
+  private image!: string;
+
+  private description!: string;
 
   value: String = "";
 
@@ -44,6 +54,14 @@ export class MapComponent implements AfterViewInit {
         this.updateMap(c);
       }
     });
+  }
+
+  get getDescription() {
+    return this.description;
+  }
+
+  get getImage() {
+    return this.image;
   }
 
   closePopup() {
@@ -80,6 +98,18 @@ export class MapComponent implements AfterViewInit {
       },
       error: (err) => {
         console.error('Erreur API:', err);
+      }
+    });
+
+    this.http.get<description>(`http://localhost:8080/description/${country}`).subscribe({
+      next: (config) => {
+        this.image = config.image;
+        this.description = config.description;
+      },
+      error: (err) => {
+        console.error('Erreur API:', err);
+        this.image = '';
+        this.description = '';
       }
     });
   }
