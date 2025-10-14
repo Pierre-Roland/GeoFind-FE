@@ -2,7 +2,12 @@
   <ul class="nav-list">
     <li><a [routerLink]="['/home']">Accueil</a></li>
     <li><a [routerLink]="['/mostVisited']">Lieux Populaires</a></li>
-    <li><a [routerLink]="['/userPage']">Page Utilisateur</a></li>
+    @if (userService.username$ | async; as username) {
+      <li><a [routerLink]="['/userPage']">Page Utilisateur</a></li>
+    }
+    @else {
+      <li></li>
+    }
   </ul>
   <div class="connection-link">
     @if (userService.username$ | async; as username) {

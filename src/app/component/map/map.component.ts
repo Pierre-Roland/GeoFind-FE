@@ -22,7 +22,7 @@ interface description {
 
 @Component({
   selector: 'map',
-  standalone: true, // composant autonome
+  standalone: true, 
   imports: [FormsModule],
   templateUrl: 'map.component.html',
   styleUrls: ['./map.component.scss']
@@ -39,6 +39,8 @@ export class MapComponent implements AfterViewInit {
 
   private country!: string;
 
+  countryParam!: string;
+
   private username!: string;
 
   value: String = "";
@@ -53,7 +55,7 @@ export class MapComponent implements AfterViewInit {
 
   protected readonly title = signal('geo-find');
 
-  constructor(public userService: UserService, private route: ActivatedRoute) {
+  constructor(public userService: UserService) {
     effect(() => {
       const c = this.coords();
       if (c && this.map) {
@@ -72,7 +74,7 @@ export class MapComponent implements AfterViewInit {
           console.error('pays impossible à récupérer');
           return;
         }
-        this.country = countryValue;
+        this.countryParam = countryValue;
       })
     });
   }
@@ -173,9 +175,10 @@ export class MapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.country != null) {
-      this.getCoordonnees(this.country);
+    if (this.countryParam != null) {
+      this.getCoordonnees(this.countryParam);
     }
+
     this.map = L.map('map', {
       center: [51.505, -0.09],
       zoom: 3

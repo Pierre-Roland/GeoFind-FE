@@ -16,6 +16,12 @@
         <td>
           <img *ngIf="fav.image" [src]="fav.image" [alt]="fav.country" class="favorite-image">
         </td>
+        <td class="LogoPoubelle">
+          <img 
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStsZH_kvBjTYKS1xE8bEnEampwVjNx2Yubtw&s" 
+            alt="logo poubelle"
+            (click)="deleteCountry(fav.country)">
+        </td>
       </tr>
     </tbody>
   </table>

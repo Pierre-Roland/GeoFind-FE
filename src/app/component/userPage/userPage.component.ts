@@ -33,6 +33,10 @@ export class UserPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.displayFavorite();
+    }
+
+    displayFavorite() {
         this.userService.username$.subscribe(usernameValue => {
             if (!usernameValue) {
             console.error('Utilisateur non connecté');
@@ -65,6 +69,28 @@ export class UserPageComponent implements OnInit {
                 alert(`Erreur inattendue (${err.status})`);
             }
             });
+        });
+    }
+
+    deleteCountry(country: String) {
+        const body = {
+            username: this.getUsername, 
+            country: country
+        };
+
+        this.http.delete<String>('http://localhost:8080/userPage/delete', { 
+            body,
+            responseType: 'text' as 'json'})
+            .subscribe({
+            next: (config) => {
+                console.log('Enregistré avec succès:', config);
+                this.favorites = [];
+                this.displayFavorite();
+            },
+            error: (err) => {
+                console.error('Erreur API:', err);
+                alert(`Erreur inattendue (${err.status})`);
+            }
         });
     }
 }
