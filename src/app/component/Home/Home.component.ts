@@ -20,5 +20,10 @@ export class HomeComponent {
     if (username != null) {
       this.userService.setUsername(username);
     }
+
+    let country = this.route.snapshot.paramMap.get('country');
+    if (country != null) {
+      this.userService.setCountry(country);
+    }
   }
 }

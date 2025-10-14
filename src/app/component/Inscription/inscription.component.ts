@@ -46,7 +46,7 @@ export class SignupComponent {
     },
     error: err => {
         console.error(err);
-        alert("erreur d'inscription");
+        alert("erreur d'inscription, username ou email déjà utilisé");
     }
     });
   }

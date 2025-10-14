@@ -1,0 +1,44 @@
+li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.favorites-container {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  width: 80%;
+  margin: 5% 10%;
+}
+
+.CountryTd {
+  font-weight: bold; 
+  font-size: 1.2rem;
+}
+
+.CountryTd a {
+  text-decoration: none;   
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+.favorite-image {
+  width: 200px;      
+  height: 120px;       
+  object-fit: cover;  
+  border-radius: 5px;
+}

@@ -74,6 +74,29 @@
           <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer;"  (click)="closePopup()"></i>
           <img [src]="getImage"> 
           <p>{{ getDescription }}</p>
+          @if (getUsername != null) {
+            <button 
+              type="submit" 
+              (click)="onSubmitFav()"
+              style="
+                background: linear-gradient(135deg, #007BFF, #0056b3);
+                margin: 0 5%;
+                border: none;
+                border-radius: 25px;
+                padding: 10px 20px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                cursor: pointer;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+              "
+              onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
+              onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
+            >
+              Ajouter aux favoris
+            </button>
+          }
         </div>
       }
       @if (DescriptionLogo) {

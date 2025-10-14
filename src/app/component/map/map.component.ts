@@ -2,7 +2,9 @@ import { Component, AfterViewInit, OnChanges, SimpleChanges,signal, inject  } fr
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { effect } from '@angular/core';
+import { UserService } from '../../services/UserService';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 interface Coordonne {
   zoom: number;
@@ -35,6 +37,10 @@ export class MapComponent implements AfterViewInit {
 
   private description!: string;
 
+  private country!: string;
+
+  private username!: string;
+
   value: String = "";
 
   isDescriptionVisible = false;
@@ -47,12 +53,27 @@ export class MapComponent implements AfterViewInit {
 
   protected readonly title = signal('geo-find');
 
-  constructor() {
+  constructor(public userService: UserService, private route: ActivatedRoute) {
     effect(() => {
       const c = this.coords();
       if (c && this.map) {
         this.updateMap(c);
       }
+      this.userService.username$.subscribe(usernameValue => {
+        if (!usernameValue) {
+          console.error('Utilisateur non connecté');
+          return;
+        }
+        this.username = usernameValue;
+      })
+      
+      this.userService.country$.subscribe(countryValue => {
+        if (!countryValue) {
+          console.error('pays impossible à récupérer');
+          return;
+        }
+        this.country = countryValue;
+      })
     });
   }
 
@@ -62,6 +83,10 @@ export class MapComponent implements AfterViewInit {
 
   get getImage() {
     return this.image;
+  }
+
+  get getUsername() {
+    return this.username;
   }
 
   closePopup() {
@@ -89,36 +114,68 @@ export class MapComponent implements AfterViewInit {
   onSubmit() {
     const country = this.value; 
 
-    this.isDescriptionVisible = true;
+    this.getCoordonnees(country);
+  }
 
+  getCoordonnees(country: String) {
     this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
       next: (config) => {
         console.log('Réponse backend:', config);
         this.coords.set(config);
+        this.http.get<description>(`http://localhost:8080/description/${country}`).subscribe({
+          next: (config) => {
+            this.isDescriptionVisible = true;
+            this.image = config.image;
+            this.description = config.description;
+          },
+          error: (err) => {
+            console.error('Erreur API:', err);
+            this.image = '';
+            this.description = '';
+            alert('Erreur : aucune description correspondante pour ce pays.');
+          }
+        });
       },
       error: (err) => {
         console.error('Erreur API:', err);
-      }
-    });
-
-    this.http.get<description>(`http://localhost:8080/description/${country}`).subscribe({
-      next: (config) => {
-        this.image = config.image;
-        this.description = config.description;
-      },
-      error: (err) => {
-        console.error('Erreur API:', err);
-        this.image = '';
-        this.description = '';
+        alert('Erreur : impossible de trouver de correspondance pour ce pays.');
       }
     });
   }
+   
+  onSubmitFav() {
+    const body = {
+      username: this.getUsername, 
+      country: this.country
+    };
+
+    this.http.post<description>('http://localhost:8080/userPage/save', body).subscribe({
+      next: (config) => {
+        console.log('Enregistré avec succès:', config);
+        alert("pays bien ajouté en favoris");
+      },
+      error: (err) => {
+        console.error('Erreur API:', err);
+
+        if (err.status === 409) {
+          alert("Ce pays est déjà dans vos favoris !");
+        } else if (err.status === 500) {
+          alert("Erreur interne du serveur. Réessayez plus tard.");
+        } else {
+          alert(`Erreur inattendue (${err.status})`);
+        }
+      }
+    });
+  };
 
   onInputChange(event: Event) {
     this.value = (event.target as HTMLInputElement).value;
   }
 
   ngAfterViewInit(): void {
+    if (this.country != null) {
+      this.getCoordonnees(this.country);
+    }
     this.map = L.map('map', {
       center: [51.505, -0.09],
       zoom: 3
@@ -130,6 +187,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   private updateMap(coords: Coordonne): void {
+    this.country = coords.country;
     
     this.map.flyTo([coords.center1, coords.center2], coords.zoom, {
       animate: true,

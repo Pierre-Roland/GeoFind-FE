@@ -9,4 +9,11 @@ export class UserService {
   setUsername(name: string | null) {
     this.usernameSource.next(name);
   }
+
+  private countrySource = new BehaviorSubject<string | null>(null);
+  country$ = this.countrySource.asObservable();
+
+  setCountry(country: string | null) {
+    this.countrySource.next(country);
+  }
 }

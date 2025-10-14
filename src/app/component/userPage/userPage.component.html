@@ -1,0 +1,26 @@
+<div class="favorites-container">
+  <h3>Pays favoris de {{ getUsername }}</h3>
+
+  <table *ngIf="favorites.length > 0; else noFavs">
+    <thead>
+      <tr>
+        <th>Pays</th>
+        <th>Description</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fav of favorites">
+        <td class="CountryTd"><a [routerLink]="['/home/country', fav.country]">{{ fav.country | titlecase }}</a></td>
+        <td>{{ fav.description }}</td>
+        <td>
+          <img *ngIf="fav.image" [src]="fav.image" [alt]="fav.country" class="favorite-image">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noFavs>
+    <p>Aucun pays favori pour le moment.</p>
+  </ng-template>
+</div>
