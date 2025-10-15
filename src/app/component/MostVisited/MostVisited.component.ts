@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 export interface Description {
-  country: string;
+  lieu: string;
   image: string;
   description: string;
 }
@@ -12,7 +13,7 @@ export interface Description {
 @Component({
   selector: 'most-visited',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: 'MostVisited.component.html',
   styleUrls: ['./MostVisited.component.scss']
 })
@@ -23,14 +24,25 @@ export class MostVisitedComponent implements OnInit {
 
   mostVisited: Description[] = [];
 
-  pagination: Number = 10;
+  pagination: number = 10;
+
+  itemsPerPage: number = 10;
+
+  onItemsPerPageChange() {
+    this.executeQuery(this.itemsPerPage);
+  }
 
   ngOnInit(): void {
-    this.http.get<Description[]>(`http://localhost:8080/description/lieu/mostVisited/${this.pagination}`).subscribe({
+    this.executeQuery(this.pagination);
+  }
+
+  executeQuery(pagination: number) {
+    this.mostVisited = [];
+    this.http.get<Description[]>(`http://localhost:8080/description/lieu/mostVisited/${pagination}`).subscribe({
     next: (data) => {
         data.forEach((res) => {
           this.mostVisited.push({
-              country: res.country,
+              lieu: res.lieu,
               description: res.description,
               image: res.image
           });

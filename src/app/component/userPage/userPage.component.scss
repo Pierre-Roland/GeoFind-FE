@@ -3,12 +3,24 @@ li {
   padding: 5px 0;
 }
 
+.main-user-page {
+  background: linear-gradient(180deg, #25325c 0%, #1b2f6b 60%);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.invisible {
+  visibility: hidden;
+  padding: 1%;
+}
+
 .favorites-container {
   padding: 1rem;
-  background: #f9f9f9;
+  background-color: #f9f9f9;
   border-radius: 10px;
-  width: 80%;
-  margin: 5% 10%;
+  width: 90%;
+  margin-left: 5%;
 }
 
 .CountryTd {
@@ -22,6 +34,7 @@ li {
 
 .LogoPoubelle img{
   width: 90%;
+  margin-left: 5%;
 }
 
 .CountryTd a {

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/AuthService ';
 
 @Component({
 selector: 'app-login-form',
@@ -18,7 +19,7 @@ export class LoginFormComponent {
     form: FormGroup;
     showPassword = false;
 
-    constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+    constructor(private auth: AuthService, private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.form = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -47,6 +48,7 @@ export class LoginFormComponent {
         .subscribe({
             next: (result: boolean) => {
             if (result) {
+                this.auth.login();
                 this.router.navigate(['/home', username]);
             } else {
                 alert('Identifiants invalides !');

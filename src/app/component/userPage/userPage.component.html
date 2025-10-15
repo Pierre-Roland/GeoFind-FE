@@ -1,32 +1,36 @@
-<div class="favorites-container">
-  <h3>Pays favoris de {{ getUsername }}</h3>
+<div class="main-user-page">
+  <p class="invisible"></p>
+  <div class="favorites-container">
+    <h3>Pays favoris de {{ getUsername }}</h3>
 
-  <table *ngIf="favorites.length > 0; else noFavs">
-    <thead>
-      <tr>
-        <th>Pays</th>
-        <th>Description</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let fav of favorites">
-        <td class="CountryTd"><a [routerLink]="['/home/country', fav.country]">{{ fav.country | titlecase }}</a></td>
-        <td>{{ fav.description }}</td>
-        <td>
-          <img *ngIf="fav.image" [src]="fav.image" [alt]="fav.country" class="favorite-image">
-        </td>
-        <td class="LogoPoubelle">
-          <img 
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStsZH_kvBjTYKS1xE8bEnEampwVjNx2Yubtw&s" 
-            alt="logo poubelle"
-            (click)="deleteCountry(fav.country)">
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table *ngIf="favorites.length > 0; else noFavs">
+      <thead>
+        <tr>
+          <th>Pays</th>
+          <th>Description</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fav of favorites">
+          <td class="CountryTd"><a [routerLink]="['/home/country', fav.country]">{{ fav.country | titlecase }}</a></td>
+          <td>{{ fav.description }}</td>
+          <td>
+            <img *ngIf="fav.image" [src]="fav.image" [alt]="fav.country" class="favorite-image">
+          </td>
+          <td class="LogoPoubelle">
+            <img 
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAM1BMVEX///8AAACjo6OmpqahoaFqamr29vbj4+NtbW2ZmZm9vb12dnaenp63t7d8fHxGRkYfHx/YDSedAAACiUlEQVR4nO3cC1bDIBCFYal9pbWP/a9WK6dqEtIkMLXMzf8tYM6MDEITwtsbAAAAAAAAAAAAAAAAAAAAAAAAAAD4f7tmvzmetqYxt6fjZt/sTGNmO4dv14NhzMM1Bj0bxsx2CXdrs5jrn5gXs5jZzuHXyijm6k/Ml4/iLgTzEletmK+ei00wL7FdYGgMQpbYt9MJH8UR152Ie4MsS2w6+RSP4ns34MYkz3zHbkKFJa568Y5GmeY69TIqWjT6BYaTWa55tlfLErtz8MvVdq+U4dBPKrtREyMYLHdKmRJ/98wSUwXa7ZMK9P77hbxFI1Wg1S6pUKrE+anZRHkSi+SqLtBiLlq1+tOUJljxHLwra7LKWzQqGYVUgVUsE235q1m162BXbqu5aNEoL1VHBebNxeqXibb56TpYJtrmtpyrFo3mpeywwHlt52Qd7Jqetrs5eDe19Vy2aDRtbJy2aDQlebctGo03oOMWjcYKcF/gWBM626qlPSrC+Ry8G25EgRaNhgqRKXCoGV2vg12pYnovHP2O4E2qRKkC040q06LR+Ci6HsGbsRLdFzhWokCBj+eiu61a2vAoSozgzVCJMgUOlShUYP9w2M2rDzuZkh9D+Xko/79Ufj2U39PI70vlf1vI/z6U/40v/5xG/lmb/PNS+Wfe8u8t5N89yb8/lH8HLP8eX/4shvx5GvkzUaXn2qpfNOTPJsqfL5U/Iyx/zlv+rL789xby38zIf/ck/+1a6ShUv2jIf0Mq/x2wTYtVXGKqQKnv8e3uVKh00ZC/F0P/bhP9+2n07xjSvydK/64v/fva9O/c0783cQF3Xy7g/tIF3EELAAAAAAAAAAAAAAAAAAAAAAAAAMDCfAJZehPwT3+hZAAAAABJRU5ErkJggg==" 
+              alt="logo poubelle"
+              (click)="deleteCountry(fav.country)">
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <ng-template #noFavs>
-    <p>Aucun pays favori pour le moment.</p>
-  </ng-template>
+    <ng-template #noFavs>
+      <p>Aucun pays favori pour le moment.</p>
+    </ng-template>
+  </div>
+  <p class="invisible"></p>
 </div>

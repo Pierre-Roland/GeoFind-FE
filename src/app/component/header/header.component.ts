@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from '../../services/UserService';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/AuthService ';
 
 @Component({
   selector: 'header-geo',
@@ -12,9 +13,10 @@ import { Router } from '@angular/router';
 })
 
 export class HeaderComponent {
-  constructor(public userService: UserService, public router: Router) {}
+  constructor(private auth: AuthService, public userService: UserService, public router: Router) {}
 
   logout() {
+    this.auth.logout();
     this.userService.setUsername(null);
     this.router.navigate(['/home']);
   }

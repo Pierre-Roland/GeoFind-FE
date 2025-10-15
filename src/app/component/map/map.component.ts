@@ -153,7 +153,6 @@ export class MapComponent implements AfterViewInit {
     this.http.post<description>('http://localhost:8080/userPage/save', body).subscribe({
       next: (config) => {
         console.log('Enregistré avec succès:', config);
-        alert("pays bien ajouté en favoris");
       },
       error: (err) => {
         console.error('Erreur API:', err);

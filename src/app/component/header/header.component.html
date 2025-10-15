@@ -12,7 +12,7 @@
   <div class="connection-link">
     @if (userService.username$ | async; as username) {
       <a (click)="logout()">Déconnexion</a>
-      <a href="" class="usernameHeader">{{ username?.[0] }}</a>
+      <p class="usernameHeader">{{ username?.[0] }}</p>
     } @else {
       <a [routerLink]="['/connection']">Connexion</a>
     }
