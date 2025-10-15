@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { effect } from '@angular/core';
 import { UserService } from '../../services/UserService';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 interface Coordonne {
   zoom: number;
