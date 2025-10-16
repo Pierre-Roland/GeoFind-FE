@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../env/environnement';
 
 @Component({
 selector: 'app-forgot-password-form',
@@ -13,37 +14,39 @@ styleUrls: ['./forgotPassword.component.scss']
 
 export class ForgotPasswordComponent {
 
-@Output() sendEmail = new EventEmitter<string>();
-form: FormGroup;
+  private apiUrl = environment.apiUrl;
 
-constructor(private fb: FormBuilder, private http: HttpClient) {
-this.form = this.fb.group({
-email: ['', [Validators.required, Validators.email]]
-});
-}
+  @Output() sendEmail = new EventEmitter<string>();
+  form: FormGroup;
 
-get email() {
-    return this.form.get('email')!;
-}
-
-onSubmit() {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+  this.form = this.fb.group({
+  email: ['', [Validators.required, Validators.email]]
+  });
   }
 
-  const emailValue = encodeURIComponent(this.email.value);
-  const url = `http://localhost:8080/auth/forgot-password?email=${emailValue}`;
+  get email() {
+      return this.form.get('email')!;
+  }
 
-  this.http.post(url, null, { responseType: 'text' })
-    .subscribe({
-      next: () => {
-        alert('Lien de réinitialisation envoyé !');
-      },
-      error: err => {
-        console.error(err);
-        alert("Impossible d'envoyer l'email. Vérifiez l'adresse saisie.");
-      }
-    });
-}
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const emailValue = encodeURIComponent(this.email.value);
+    const url = `${this.apiUrl}/auth/forgot-password?email=${emailValue}`;
+
+    this.http.post(url, null, { responseType: 'text' })
+      .subscribe({
+        next: () => {
+          alert('Lien de réinitialisation envoyé !');
+        },
+        error: err => {
+          console.error(err);
+          alert("Impossible d'envoyer l'email. Vérifiez l'adresse saisie.");
+        }
+      });
+  }
 }

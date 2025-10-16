@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { effect } from '@angular/core';
 import { UserService } from '../../services/UserService';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../env/environnement';
 
 interface Coordonne {
   zoom: number;
@@ -28,6 +29,9 @@ interface description {
 })
 
 export class MapComponent implements AfterViewInit {
+
+  private apiUrl = environment.apiUrl;
+
   private currentMarker: L.Marker | null = null;
 
   private map!: L.Map;
@@ -119,11 +123,11 @@ export class MapComponent implements AfterViewInit {
   }
 
   getCoordonnees(country: String) {
-    this.http.get<Coordonne>(`http://localhost:8080/maps/${country}`).subscribe({
+    this.http.get<Coordonne>(`${this.apiUrl}/maps/${country}`).subscribe({
       next: (config) => {
         console.log('Réponse backend:', config);
         this.coords.set(config);
-        this.http.get<description>(`http://localhost:8080/description/${country}`).subscribe({
+        this.http.get<description>(`${this.apiUrl}/description/${country}`).subscribe({
           next: (config) => {
             this.isDescriptionVisible = true;
             this.image = config.image;
@@ -150,7 +154,7 @@ export class MapComponent implements AfterViewInit {
       country: this.country
     };
 
-    this.http.post<description>('http://localhost:8080/userPage/save', body).subscribe({
+    this.http.post<description>(`${this.apiUrl}/userPage/save`, body).subscribe({   
       next: (config) => {
         console.log('Enregistré avec succès:', config);
       },

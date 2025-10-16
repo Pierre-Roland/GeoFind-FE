@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../env/environnement';
 
 export interface Description {
   lieu: string;
@@ -19,6 +20,8 @@ export interface Description {
 })
 
 export class MostVisitedComponent implements OnInit {
+
+  private apiUrl = environment.apiUrl;
 
   private http = inject(HttpClient);
 
@@ -38,7 +41,7 @@ export class MostVisitedComponent implements OnInit {
 
   executeQuery(pagination: number) {
     this.mostVisited = [];
-    this.http.get<Description[]>(`http://localhost:8080/description/lieu/mostVisited/${pagination}`).subscribe({
+    this.http.get<Description[]>(`${this.apiUrl}/description/lieu/mostVisited/${pagination}`).subscribe({   
     next: (data) => {
         data.forEach((res) => {
           this.mostVisited.push({

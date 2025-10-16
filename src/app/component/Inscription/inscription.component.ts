@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../env/environnement';
 
 @Component({
   selector: 'app-signup-form',
@@ -13,6 +14,9 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent {
+
+  private apiUrl = environment.apiUrl;
+
   @Output() register = new EventEmitter<{ username: string; email: string; password: string }>();
   form: FormGroup;
 
@@ -34,7 +38,7 @@ export class SignupComponent {
       return;
     }
 
-    this.http.post('http://localhost:8080/users/save', { 
+    this.http.post(`${this.apiUrl}/users/save`, { 
         username: this.username.value,
         password: this.password.value,
         email: this.email.value 

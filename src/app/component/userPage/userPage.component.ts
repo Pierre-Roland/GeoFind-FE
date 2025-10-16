@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/UserService';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { environment } from '../../../env/environnement';
 
 export interface Description {
   country: string;
@@ -19,6 +20,8 @@ export interface Description {
 })
 
 export class UserPageComponent implements OnInit {
+
+    private apiUrl = environment.apiUrl;
 
     private username!: string;
 
@@ -46,10 +49,10 @@ export class UserPageComponent implements OnInit {
             this.username = usernameValue;
             console.log('Username récupéré:', this.username);
 
-            this.http.get<string[]>(`http://localhost:8080/userPage/${this.username}`).subscribe({
+            this.http.get<string[]>(`${this.apiUrl}/userPage/${this.username}`).subscribe({
             next: (data) => {
                 data.forEach((country) => {
-                    this.http.get<Description>(`http://localhost:8080/description/${country}`).subscribe({
+                    this.http.get<Description>(`${this.apiUrl}/description/${country}`).subscribe({
                         next: (config) => {
                             this.favorites.push({
                                 country: country,
@@ -78,7 +81,7 @@ export class UserPageComponent implements OnInit {
             country: country
         };
 
-        this.http.delete<String>('http://localhost:8080/userPage/delete', { 
+        this.http.delete<String>(`${this.apiUrl}/userPage/delete`, {    
             body,
             responseType: 'text' as 'json'})
             .subscribe({

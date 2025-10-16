@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../env/environnement';
 
 @Component({
   selector: 'reset-password',
@@ -14,6 +15,9 @@ import { Router } from '@angular/router';
 })
 
 export class ResetPasswordComponent {
+
+    private apiUrl = environment.apiUrl;
+
     token = '';
     uid = '';
     newPassword = '';
@@ -27,7 +31,7 @@ export class ResetPasswordComponent {
     }
 
     submit() {
-        this.http.post('http://localhost:8080/auth/reset-password', {
+        this.http.post(`${this.apiUrl}/auth/reset-password`, {   
             token: this.token,
             uid: this.uid,
             newPassword: this.newPassword

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/AuthService ';
+import { environment } from '../../../env/environnement';
 
 @Component({
 selector: 'app-login-form',
@@ -18,6 +19,7 @@ export class LoginFormComponent {
 
     form: FormGroup;
     showPassword = false;
+    private apiUrl = environment.apiUrl;
 
     constructor(private auth: AuthService, private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.form = this.fb.group({
@@ -44,7 +46,7 @@ export class LoginFormComponent {
             .set('username', username)
             .set('password', password);
 
-        this.http.get<boolean>('http://localhost:8080/users/identification', { params })
+        this.http.get<boolean>(`${this.apiUrl}/users/identification`, { params })
         .subscribe({
             next: (result: boolean) => {
             if (result) {
