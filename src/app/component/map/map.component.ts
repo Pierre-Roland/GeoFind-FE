@@ -5,6 +5,7 @@ import { effect } from '@angular/core';
 import { UserService } from '../../services/UserService';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../env/environnement';
+import { CommonModule } from '@angular/common';
 
 interface Coordonne {
   zoom: number;
@@ -23,7 +24,7 @@ interface description {
 @Component({
   selector: 'map',
   standalone: true, 
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: 'map.component.html',
   styleUrls: ['./map.component.scss']
 })
@@ -46,7 +47,11 @@ export class MapComponent implements AfterViewInit {
 
   private username!: string;
 
-  value: String = "";
+  countryList: string[] = [];
+
+  filteredCountries: string[] = [];
+
+  value: string = "";
 
   isDescriptionVisible = false;
 
@@ -79,6 +84,18 @@ export class MapComponent implements AfterViewInit {
         }
         this.countryParam = countryValue;
       })
+      this.countryList = [];
+      this.http.get<description[]>(`${this.apiUrl}/description/lieu/mostVisited/184`).subscribe({   
+      next: (data) => {
+          data.forEach((res) => {
+            this.countryList.push(res.lieu);
+          });
+      },
+      error: (err) => {
+          console.error('Erreur API:', err);
+          alert(`Erreur inattendue (${err.status})`);
+      }
+      });
     });
   }
 
@@ -114,6 +131,7 @@ export class MapComponent implements AfterViewInit {
     if (this.currentMarker) {
       this.currentMarker.closePopup();
     }
+    this.filteredCountries = [];
   }
 
   onSubmit() {
@@ -173,8 +191,29 @@ export class MapComponent implements AfterViewInit {
   };
 
   onInputChange(event: Event) {
-    this.value = (event.target as HTMLInputElement).value;
+    this.value = (event.target as HTMLInputElement).value.toLowerCase();
+
+    if (this.value.trim() === '') {
+      this.filteredCountries = [];
+      return;
+    }
+
+    this.filteredCountries = this.countryList.filter(country =>
+      country.toLowerCase().startsWith(this.value)
+    );
+
+    if (this.filteredCountries.length == 0) {
+      this.filteredCountries = this.countryList.filter(country =>
+        country.toLowerCase().includes(this.value)
+      );
+    }
   }
+
+  selectCountry(country: string) {
+    this.value = country;
+    this.filteredCountries = [];
+  }
+
 
   ngAfterViewInit(): void {
     if (this.countryParam != null) {
