@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../env/environnement';
+import { AuthService } from '../../services/AuthService ';
 
 @Component({
   selector: 'app-signup-form',
@@ -20,7 +21,7 @@ export class SignupComponent {
   @Output() register = new EventEmitter<{ username: string; email: string; password: string }>();
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private auth: AuthService, private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -45,6 +46,7 @@ export class SignupComponent {
     })
     .subscribe({
     next: () => {
+        this.auth.login();
         this.router.navigate(['/home', this.username.value]);
     },
     error: err => {
