@@ -6,8 +6,8 @@ li {
 .main-most-visited {
   background: linear-gradient(180deg, #25325c 0%, #1b2f6b 60%);
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .invisible {

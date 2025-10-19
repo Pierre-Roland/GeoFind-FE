@@ -1,6 +1,38 @@
+@use "sass:map";
+@mixin respond-max($point) {
+  $val: map.get($breakpoints, $point);
+  @if $val {
+    @media (max-width: $val) {
+      @content;
+    }
+  } @else {
+    @warn "⚠️ Breakpoint `#{$point}` non trouvé.";
+  }
+}
+
+$breakpoints: (
+  pg: 400px,
+  lg: 600px,
+  mg: 750px,
+  xl: 900px
+);
+
 .empty-icon {
   background: none;
   border: none;
+}
+
+.boutton_recherche {
+  display: flex;
+  flex-direction: row;
+}
+
+.recherche {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 15px; 
+  margin-top: 4%;
 }
 
 main {
@@ -83,3 +115,78 @@ main {
   border-left: 2px solid rgba(255, 255, 255, 0.2);
 }
 
+@include respond-max('xl') {
+  #descriptionMap {
+    top: auto;          
+    right: 0;           
+    bottom: 0;         
+    width: 100%;        
+    height: 35%;        
+    flex-direction: row; 
+    border-left: none;   
+    border-top: 2px solid rgba(255, 255, 255, 0.2); 
+  }
+
+  #descriptionMap img {
+    height: 16vh;
+    width: 240%;
+    margin: 0;
+    margin-top: 7%;
+  }
+
+  #descriptionMap p {
+    margin: 2%;
+    margin-left: 5%;
+    font-size: 1rem;
+  }
+}
+
+@include respond-max('mg') {
+  #descriptionMap img {
+    height: 17vh;
+    width: 250%;
+    margin: 0;
+    margin-top: 7%;
+  }
+
+  #descriptionMap p {
+    margin: 0;
+    margin-left: 5%;
+    margin-top: 5%;
+    font-size: 0.9rem;
+  }
+
+  .recherche {
+    margin-top: 8%;
+  }
+}
+
+@include respond-max('lg') {
+  #descriptionMap {       
+    height: 45%;        
+    flex-direction: column; 
+  }
+
+  #descriptionMap img {
+    height: 12vh;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: -5%;
+  }
+
+  #descriptionMap p {
+    margin-left: 0;
+  }
+
+  .recherche {
+    margin-top: 20%;
+    flex-direction: column;
+  }
+}
+
+@include respond-max('pg') {
+  #descriptionMap p{       
+    font-size: 0.8rem;
+  }
+}

@@ -1,6 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <main>
-  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; margin-top: 4%;">
+  <div class="recherche">
     <!-- Champ de recherche -->
     <div style="position: relative;">
       <input 
@@ -29,48 +29,51 @@
       </ul>
     </div>
 
-    <!-- Bouton de recherche -->
-    <button 
-      type="submit" 
-      (click)="onSubmit()"
-      style="
-        background: linear-gradient(135deg, #007BFF, #0056b3);
-        border: none;
-        border-radius: 25px;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-      "
-      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-      onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
-    >
-      Rechercher
-    </button>
+    <div class="boutton_recherche">
+      <!-- Bouton de recherche -->
+      <button 
+        type="submit" 
+        (click)="onSubmit()"
+        style="
+          background: linear-gradient(135deg, #007BFF, #0056b3);
+          border: none;
+          border-radius: 25px;
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: bold;
+          color: white;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          transition: all 0.3s ease;
+        "
+        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
+      >
+        Rechercher
+      </button>
 
-    <button 
-      type="submit" 
-      (click)="onReset()"
-      style="
-        background: linear-gradient(135deg, #007BFF, #0056b3);
-        border: none;
-        border-radius: 25px;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-      "
-      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-      onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
-    >
-      Reset
-    </button>
+      <button 
+        type="submit" 
+        (click)="onReset()"
+        style="
+          background: linear-gradient(135deg, #007BFF, #0056b3);
+          border: none;
+          border-radius: 25px;
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: bold;
+          color: white;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          transition: all 0.3s ease;
+          margin-left: 5%;
+        "
+        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.2)';"
+      >
+        Reset
+      </button>
+    </div>
   </div>
 
   <!-- Conteneur de la carte -->
@@ -79,7 +82,7 @@
       <div id="map"></div>
       @if (isDescriptionVisible) {
         <div id="descriptionMap">
-          <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer;"  (click)="closePopup()"></i>
+          <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer; width: 5%;"  (click)="closePopup()"></i>
           <img [src]="getImage"> 
           <p>{{ getDescription }}</p>
           @if (getUsername != null) {
