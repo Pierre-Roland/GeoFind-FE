@@ -219,6 +219,9 @@ export class MapComponent implements AfterViewInit {
     if (this.countryParam != null) {
       this.getCoordonnees(this.countryParam);
     }
+    else {
+      this.getCoordonnees("Belgique");
+    }
 
     this.map = L.map('map', {
       center: [51.505, -0.09],

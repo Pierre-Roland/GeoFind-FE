@@ -1,5 +1,20 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <main>
+  @if (!getDescription || getDescription.trim().length === 0) {
+    <div class="card-container">
+      <h2>⚠️ Backend Wake-Up Notice</h2>
+
+      <p>
+        Due to the limitations of the free hosting plan, the backend enters
+        standby mode after 10 minutes of inactivity.
+      </p>
+
+      <p>
+        If the application does not respond, make a request and wait 1–3
+        minutes for the server to wake up, then refresh the page.
+      </p>
+    </div>
+  }
   <div class="recherche">
     <!-- Champ de recherche -->
     <div style="position: relative;">

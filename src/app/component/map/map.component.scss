@@ -22,6 +22,17 @@ $breakpoints: (
   border: none;
 }
 
+.card-container {
+  color: white;
+  border: 1px solid grey;
+  width: 60%;
+  margin-left: 20%;
+  padding-left: 5%;
+  margin-top: 2%;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(178, 173, 173, 0.15);
+}
+
 .boutton_recherche {
   display: flex;
   flex-direction: row;

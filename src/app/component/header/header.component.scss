@@ -1,3 +1,22 @@
+@use "sass:map";
+@mixin respond-max($point) {
+  $val: map.get($breakpoints, $point);
+  @if $val {
+    @media (max-width: $val) {
+      @content;
+    }
+  } @else {
+    @warn "⚠️ Breakpoint `#{$point}` non trouvé.";
+  }
+}
+
+$breakpoints: (
+  pg: 400px,
+  lg: 600px,
+  mg: 750px,
+  xl: 900px
+);
+
 .header {
   width: 100%;
   display: flex;
@@ -62,4 +81,8 @@ header a:hover {
 
 header a:active {
   transform: scale(0.95);   
+}
+
+@include respond-max('xl') {
+  
 }
